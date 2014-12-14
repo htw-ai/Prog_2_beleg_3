@@ -8,9 +8,9 @@ import java.util.HashMap;
 public class Node {
     public HashMap<Node, Edge> edges = new HashMap<Node, Edge>();
 
-    public void addEdges(Node node, Edge edge) {
+    public void addEdge(Node node, Edge edge) {
+        node.edges.put(this, edge);
         this.edges.put(node, edge);
-        node.addEdges(this, edge);
     }
 
     public void deleteEdge(Node node){
