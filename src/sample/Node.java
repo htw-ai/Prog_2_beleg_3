@@ -7,6 +7,15 @@ import java.util.HashMap;
  */
 public class Node {
     public HashMap<Node, Edge> edges = new HashMap<Node, Edge>();
+    private String name;
+
+    public Node (String name){
+        this.name = name;
+    }
+
+    public String getName () {
+        return name;
+    }
 
     public void addEdge(Node node, Edge edge) {
         node.edges.put(this, edge);
@@ -16,6 +25,18 @@ public class Node {
     public void deleteEdge(Node node){
         node.edges.remove(this);
         this.edges.remove(node);
+    }
+
+    public String toString (){
+        StringBuilder str = new StringBuilder();
+        for (HashMap.Entry<Node, Edge> entry : edges.entrySet()) {
+            str.append("-- ");
+            str.append(Integer.toString(entry.getValue().getRating()));
+            str.append(" -->");
+            str.append(entry.getKey().getName());
+            str.append("\n");
+        }
+        return str.toString();
     }
 
     public void deleteAllEdges(){
