@@ -1,5 +1,11 @@
 package sample;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -94,4 +100,30 @@ BFS(start_node, goal_node) {
         }
         return graph;
     }
+
+
+    public static Graph fromFile(String path) throws IOException {
+        byte[] encoded = Files.readAllBytes(Paths.get(path, "UTF-8"));
+        String str = new String(encoded);
+        String[] graph_info = str.split("(\\w+?);(\\w+?);(\\d+?);;");
+        Graph graph = new Graph();
+        Node firstNode;
+        Node secondNode;
+        for (int i = 0; i < graph_info.length; i+=3) {
+            graph.addNode(graph_info[i]);
+        }
+        for (int i = 0; i < graph_info.length ; i+=3) {
+            firstNode = graph.getNode(graph_info[i]);
+            secondNode = graph.getNode(graph_info[i+1]);
+            firstNode.addEdge(secondNode, Integer.parseInt(graph_info[i+2]));
+        }
+        return graph;
+    }
+
+    public void toFile(String path) throws FileNotFoundException, UnsupportedEncodingException {
+        PrintWriter writer = new PrintWriter(path, "UTF-8");
+        writer.print(toString());
+        writer.close();
+    }
+
 }

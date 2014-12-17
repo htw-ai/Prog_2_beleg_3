@@ -111,12 +111,15 @@ public class GraphCli {
         System.out.println(graph.toString());
     }
 
-    public void readFromFile(){
-
+    public void readFromFile() throws IOException {
+        String path = readLine("Enter file path");
+        graph = Graph.fromFile(path);
+        System.out.println("import successfull");
     }
 
-    public void writeToFile(){
-
+    public void writeToFile() throws IOException {
+        String path = readLine("Enter file path");
+        graph.toFile(path);
     }
 
     public void random() throws IOException{

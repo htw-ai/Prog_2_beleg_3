@@ -20,7 +20,7 @@ public class Main extends Application {
 
 
     public static void main(String[] args) throws IOException {
-        if(args[0].equals("gui")){
+        if(args.length > 0 && args[0].equals("gui")){
             // start gui
             launch(args);
         } else {
