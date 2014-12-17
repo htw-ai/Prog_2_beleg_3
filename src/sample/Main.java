@@ -25,8 +25,8 @@ public class Main extends Application {
             launch(args);
         } else {
             // start cli
+            GraphCli graph = new GraphCli();
             while (true) {
-                GraphCli graph = new GraphCli();
                 graph.call();
                 if (graph.shouldBreak())
                     break;
