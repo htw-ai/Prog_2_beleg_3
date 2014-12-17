@@ -6,6 +6,7 @@ import java.util.Random;
 /**
  * Created by dudzik on 14.12.14.
  */
+
 public class Graph {
     private HashMap<String, Node> nodes = new HashMap<String, Node> ();
 
@@ -68,9 +69,9 @@ BFS(start_node, goal_node) {
     public String toString(){
         StringBuilder str = new StringBuilder();
         for (HashMap.Entry<String, Node> entry : nodes.entrySet()) {
-            str.append("node name:").append(entry.getKey()).append("\n");
+            str.append(entry.getKey()).append(";\n");
             str.append(entry.getValue().toString());
-            str.append("\n-----------------------\n");
+            str.append(";;\n");
         }
         return str.toString();
     }
@@ -89,7 +90,7 @@ BFS(start_node, goal_node) {
             }
             Node firstNode = graph.getNode(Integer.toString(firstNodeName));
             Node secondNode = graph.getNode(Integer.toString(secondNodeName));
-            firstNode.addEdge(secondNode, new Edge(rand.nextInt(5)));
+            firstNode.addEdge(secondNode, rand.nextInt(5));
         }
         return graph;
     }

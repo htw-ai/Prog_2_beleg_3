@@ -17,7 +17,8 @@ public class Node {
         return name;
     }
 
-    public void addEdge(Node node, Edge edge) {
+    public void addEdge(Node node, int rating) {
+        Edge edge = new Edge(rating);
         node.edges.put(this, edge);
         this.edges.put(node, edge);
     }
@@ -30,10 +31,10 @@ public class Node {
     public String toString (){
         StringBuilder str = new StringBuilder();
         for (HashMap.Entry<Node, Edge> entry : edges.entrySet()) {
-            str.append("-- ");
-            str.append(Integer.toString(entry.getValue().getRating()));
-            str.append(" -->");
             str.append(entry.getKey().getName());
+            str.append(";");
+            str.append(Integer.toString(entry.getValue().getRating()));
+            str.append(";");
             str.append("\n");
         }
         return str.toString();
