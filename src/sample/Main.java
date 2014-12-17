@@ -20,13 +20,17 @@ public class Main extends Application {
 
 
     public static void main(String[] args) throws IOException {
-        while(true) {
-            GraphCli graph = new GraphCli();
-            graph.call();
-            if(graph.shouldBreak())
-                break;
+        if(args[0].equals("gui")){
+            // start gui
+            launch(args);
+        } else {
+            // start cli
+            while (true) {
+                GraphCli graph = new GraphCli();
+                graph.call();
+                if (graph.shouldBreak())
+                    break;
+            }
         }
-        // start gui
-        // launch(args);
     }
 }
