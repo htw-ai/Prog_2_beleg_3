@@ -29,7 +29,7 @@ public class Main extends Application {
             while (true) {
                 graph.call();
                 if (graph.shouldBreak())
-                    break;
+                    return;
             }
         }
     }

@@ -35,6 +35,7 @@ public class Graph {
     }
 
     /**
+     * @todo irgendeinen weg finden
      * @return Node[]
      */
     public void route_depthFirstSearch(Node from_node, Node to_node){
@@ -54,6 +55,7 @@ public class Graph {
 
     /**
      * @return Node[]
+     * @todo den kurzesten weg finden
      */
     public boolean route_breadthFirstSearch(Node start_node, Node goal_node){
         HashMap<String, Boolean> visited = new HashMap<String, Boolean> ();
