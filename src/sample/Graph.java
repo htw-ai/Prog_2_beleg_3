@@ -7,6 +7,8 @@ import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Random;
 
 /**
@@ -15,6 +17,10 @@ import java.util.Random;
 
 public class Graph {
     private HashMap<String, Node> nodes = new HashMap<String, Node> ();
+
+    public int nodeCount(){
+        return nodes.size();
+    }
 
     public void addNode(String name){
         nodes.put(name, new Node(name));
@@ -49,27 +55,27 @@ public class Graph {
     /**
      * @return Node[]
      */
-    public void route_breadthFirstSearch(Node from_node, Node to_node){
-/*
-BFS(start_node, goal_node) {
- for(all nodes i) visited[i] = false; // anfangs sind keine Knoten besucht
- queue.push(start_node);              // mit Start-Knoten beginnen
- visited[start_node] = true;
- while(! queue.empty() ) {            // solange queue nicht leer ist
-  node = queue.pop();                 // erstes Element von der queue nehmen
-  if(node == goal_node) {
-   return true;                       // testen, ob Ziel-Knoten gefunden
-  }
-  foreach(child in expand(node)) {    // alle Nachfolge-Knoten, ...
-   if(visited[child] == false) {      // ... die noch nicht besucht wurden ...
-    queue.push(child);                // ... zur queue hinzufügen...
-    visited[child] = true;            // ... und als bereits gesehen markieren
-   }
-  }
- }
- return false;                        // Knoten kann nicht erreicht werden
-}
- */
+    public boolean route_breadthFirstSearch(Node start_node, Node goal_node){
+        HashMap<String, Boolean> visited = new HashMap<String, Boolean> ();
+        Queue queue = new LinkedList();
+        for (HashMap.Entry<String, Node> entry : nodes.entrySet()) {
+            visited.put(entry.getKey(), false);
+        }
+        queue.add(start_node);
+        visited.put(start_node.getName(), true);
+        while(! queue.isEmpty() ) {
+            Object node = queue.poll();
+            if(node == goal_node) {
+                return true;
+            }
+            // foreach(child in expand(node)) {    // alle Nachfolge-Knoten, ...
+            //    if(visited[child] == false) {      // ... die noch nicht besucht wurden ...
+            //        queue.push(child);                // ... zur queue hinzufügen...
+            //        visited[child] = true;            // ... und als bereits gesehen markieren
+            //    }
+            // }
+        }
+        return false;
     }
 
     public String toString(){
@@ -101,21 +107,24 @@ BFS(start_node, goal_node) {
         return graph;
     }
 
-
     public static Graph fromFile(String path) throws IOException {
-        byte[] encoded = Files.readAllBytes(Paths.get(path, "UTF-8"));
+        byte[] encoded = Files.readAllBytes(Paths.get(path));
         String str = new String(encoded);
-        String[] graph_info = str.split("(\\w+?);(\\w+?);(\\d+?);;");
         Graph graph = new Graph();
+        String[] graph_info = str.split(";;");
+        String[] node_info;
         Node firstNode;
         Node secondNode;
-        for (int i = 0; i < graph_info.length; i+=3) {
-            graph.addNode(graph_info[i]);
-        }
-        for (int i = 0; i < graph_info.length ; i+=3) {
-            firstNode = graph.getNode(graph_info[i]);
-            secondNode = graph.getNode(graph_info[i+1]);
-            firstNode.addEdge(secondNode, Integer.parseInt(graph_info[i+2]));
+        // minus length because last element is always \n
+        for (int i = 0; i < graph_info.length - 1; i++) {
+            node_info = graph_info[i].replace("\n","").split(";");
+            graph.addNode(node_info[0]);
+            firstNode = graph.getNode(node_info[0]);
+            for (int j = 1; j < node_info.length; j = j+2) {
+                graph.addNode(node_info[j]);
+                secondNode = graph.getNode(node_info[j]);
+                firstNode.addEdge(secondNode, Integer.parseInt(node_info[j+1]));
+            }
         }
         return graph;
     }

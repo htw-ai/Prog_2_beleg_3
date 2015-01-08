@@ -93,6 +93,10 @@ public class GraphCli {
     }
 
     public void addEdge() throws IOException {
+        if(graph.nodeCount() <= 1) {
+            System.out.println("you have to have at least two nodes for this operation");
+            return;
+        }
         String nodeNameFrom = readLine("Enter the from node name");
         String nodeNameTo   = readLine("Enter the to node name");
         String rating   = readLine("Enter an edge rating");
@@ -123,8 +127,8 @@ public class GraphCli {
     }
 
     public void random() throws IOException{
-        int nodeCount = Integer.parseInt(readLine("Enter an edge rating"));
-        int edgeCount = Integer.parseInt(readLine("Enter the to node name"));
+        int nodeCount = Integer.parseInt(readLine("Enter the max edge rating"));
+        int edgeCount = Integer.parseInt(readLine("Enter the max node count"));
 
         graph = graph.random(nodeCount, edgeCount);
     }
