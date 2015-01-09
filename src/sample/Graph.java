@@ -35,7 +35,7 @@ public class Graph {
      * @todo irgendeinen weg finden
      * @return Node[]
      */
-    public void route_depthFirstSearch(Node start_node, Node goal_node){
+    public Boolean route_depthFirstSearch(Node start_node, Node goal_node){
         HashSet<String> visited = new HashSet<>();
         Stack<Node> stack = new Stack<>();
         Node node;
@@ -43,12 +43,14 @@ public class Graph {
         while(!stack.isEmpty()){
             node = stack.pop();
             if(visited.contains(node.getName())){
+                if(start_node.getName() == node.getName()) return true;
                 visited.add(node.getName());
                 node.edges.forEach((Node n, Edge e) -> {
                     stack.push(n);
                 });
             }
         }
+        return false;
     }
 
     /**
