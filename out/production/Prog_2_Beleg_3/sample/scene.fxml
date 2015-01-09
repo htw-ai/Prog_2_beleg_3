@@ -8,10 +8,12 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.GraphController">
    <children>
-      <Button layoutX="14.0" layoutY="47.0" mnemonicParsing="false" onAction="#addNode" prefHeight="26.0" prefWidth="163.0" text="add node" />
+       <Button layoutX="14.0" layoutY="47.0" mnemonicParsing="false" onAction="#addNode" prefHeight="26.0" prefWidth="74.0" text="add node" />
+       <Button layoutX="105.0" layoutY="47.0" mnemonicParsing="false" onAction="#removeNode" prefHeight="26.0" prefWidth="74.0" text="remove node" />
       <TextField fx:id="nodeName" layoutX="14.0" layoutY="14.0" promptText="node name" />
       <TextField fx:id="toNodeName" layoutX="14.0" layoutY="143.0" promptText="to node name" />
-      <Button layoutX="14.0" layoutY="213.0" mnemonicParsing="false" onAction="#addEdge" prefHeight="26.0" prefWidth="163.0" text="add edge" />
+      <Button layoutX="14.0" layoutY="213.0" mnemonicParsing="false" onAction="#addEdge" prefHeight="26.0" prefWidth="74.0" text="add edge" />
+      <Button layoutX="105.0" layoutY="213.0" mnemonicParsing="false" onAction="#removeEdge" prefHeight="26.0" prefWidth="74.0" text="remove edge" />
       <Button layoutX="14.0" layoutY="357.0" mnemonicParsing="false" onAction="#reset" prefHeight="26.0" prefWidth="74.0" text="reset" />
       <Button layoutX="104.0" layoutY="357.0" mnemonicParsing="false" onAction="#random" prefHeight="26.0" prefWidth="74.0" text="random" />
       <TextField fx:id="edgeRating" layoutX="14.0" layoutY="177.0" promptText="edge rating" />
