@@ -6,10 +6,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Created by dudzik on 14.12.14.
@@ -38,10 +35,20 @@ public class Graph {
      * @todo irgendeinen weg finden
      * @return Node[]
      */
-    public void route_depthFirstSearch(Node from_node, Node to_node){
+    public void route_depthFirstSearch(Node start_node, Node goal_node){
+
+        Stack<Node> stack = new Stack<>();
+        stack.push(goal_node);
+        while(!stack.isEmpty()){
+            goal_node = stack.pop();
+            // if(goal_node){ // check if goal node is discovered
+                // label goal_node as discoverd
+                // for all edges from v to w in G.adjacentEdges(v) do
+                // stack.push(w)
+            // }
+        }
 /*
 1  procedure DFS-iterative(G,v):
-2      let S be a stack
 3      S.push(v)
 4      while S is not empty
 5            v ← S.pop()
@@ -59,24 +66,26 @@ public class Graph {
      */
     public boolean route_breadthFirstSearch(Node start_node, Node goal_node){
         HashMap<String, Boolean> visited = new HashMap<String, Boolean> ();
-        Queue queue = new LinkedList();
+        Queue<Node> queue = new LinkedList<>();
         for (HashMap.Entry<String, Node> entry : nodes.entrySet()) {
             visited.put(entry.getKey(), false);
         }
         queue.add(start_node);
         visited.put(start_node.getName(), true);
+        Node node;
         while(! queue.isEmpty() ) {
-            Object node = queue.poll();
+            node = queue.poll();
             if(node == goal_node) {
-                return true;
+                return true;// TODO: make "snapshot" of the route and continue
             }
-            // foreach(child in expand(node)) {    // alle Nachfolge-Knoten, ...
-            //    if(visited[child] == false) {      // ... die noch nicht besucht wurden ...
-            //        queue.push(child);                // ... zur queue hinzufügen...
-            //        visited[child] = true;            // ... und als bereits gesehen markieren
-            //    }
-            // }
+            node.edges.forEach((Node n, Edge e) -> {
+                if(visited.get(n.getName()) == false) {
+                   queue.add(n);
+                   visited.put(n.getName(), true);
+                }
+            });
         }
+        // TODO: compare "snapshots" and return the shortest
         return false;
     }
 
