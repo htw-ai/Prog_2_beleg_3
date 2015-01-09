@@ -32,7 +32,7 @@ public class Graph {
     }
 
     /**
-     * @todo irgendeinen weg finden
+     * @todo return the path
      * @return Node[]
      */
     public Boolean route_depthFirstSearch(Node start_node, Node goal_node){
@@ -45,9 +45,7 @@ public class Graph {
             if(visited.contains(node.getName())){
                 if(start_node.getName() == node.getName()) return true;
                 visited.add(node.getName());
-                node.edges.forEach((Node n, Edge e) -> {
-                    stack.push(n);
-                });
+                node.edges.forEach((Node n, Edge e) -> stack.push(n));
             }
         }
         return false;
@@ -55,7 +53,7 @@ public class Graph {
 
     /**
      * @return Node[]
-     * @todo den kurzesten weg finden
+     * @todo find the shortest path and return it
      */
     public boolean route_breadthFirstSearch(Node start_node, Node goal_node){
         HashMap<String, Boolean> visited = new HashMap<String, Boolean> ();
