@@ -36,28 +36,19 @@ public class Graph {
      * @return Node[]
      */
     public void route_depthFirstSearch(Node start_node, Node goal_node){
-
+        HashSet<String> visited = new HashSet<>();
         Stack<Node> stack = new Stack<>();
+        Node node;
         stack.push(goal_node);
         while(!stack.isEmpty()){
-            goal_node = stack.pop();
-            // if(goal_node){ // check if goal node is discovered
-                // label goal_node as discoverd
-                // for all edges from v to w in G.adjacentEdges(v) do
-                // stack.push(w)
-            // }
+            node = stack.pop();
+            if(visited.contains(node.getName())){
+                visited.add(node.getName());
+                node.edges.forEach((Node n, Edge e) -> {
+                    stack.push(n);
+                });
+            }
         }
-/*
-1  procedure DFS-iterative(G,v):
-3      S.push(v)
-4      while S is not empty
-5            v ← S.pop()
-6            if v is not labeled as discovered:
-7                label v as discovered
-8                for all edges from v to w in G.adjacentEdges(v) do
-9                    S.push(w)
-
- */
     }
 
     /**
