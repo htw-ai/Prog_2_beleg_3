@@ -8,6 +8,8 @@ import java.util.HashMap;
 public class Node {
     public HashMap<Node, Edge> edges = new HashMap<Node, Edge>();
     private String name;
+    private double posX;
+    private double posY;
 
     public Node (String name){
         this.name = name;
@@ -44,5 +46,21 @@ public class Node {
         for (HashMap.Entry<Node, Edge> entry : edges.entrySet()) {
             deleteEdge(entry.getKey());
         }
+    }
+
+    public double getPosX() {
+        return posX;
+    }
+
+    public void setPosX(double posX) {
+        this.posX = posX;
+    }
+
+    public double getPosY() {
+        return posY;
+    }
+
+    public void setPosY(double posY) {
+        this.posY = posY;
     }
 }
