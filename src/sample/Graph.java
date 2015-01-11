@@ -121,13 +121,18 @@ public class Graph {
         for (int i = 0; i < graph_info.length - 1; i++) {
             node_info = graph_info[i].replace("\n","").split(";");
             graph.addNode(node_info[0]);
+        }
+
+        // minus length because last element is always \n
+        for (int i = 0; i < graph_info.length - 1; i++) {
+            node_info = graph_info[i].replace("\n","").split(";");
             firstNode = graph.getNode(node_info[0]);
             for (int j = 1; j < node_info.length; j = j+2) {
-                graph.addNode(node_info[j]);
                 secondNode = graph.getNode(node_info[j]);
                 firstNode.addEdge(secondNode, Integer.parseInt(node_info[j+1]));
             }
         }
+        System.out.print(graph.toString());
         return graph;
     }
 
