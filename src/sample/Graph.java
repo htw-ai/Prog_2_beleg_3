@@ -90,23 +90,31 @@ public class Graph {
         return str.toString();
     }
 
-    public static Graph random(int nodeCount, int edgeCount){
-        Graph graph = new Graph();
-        for (int i = 0; i < nodeCount ; i++) {
-            graph.addNode(Integer.toString(i));
-        }
+    /**
+     *
+     * @param nodeCount amount of nodes. min 2 nodes
+     * @param edgeCount
+     */
+    public void random(int nodeCount, int edgeCount){
+        nodeCount = nodeCount < 2 ? 2 : nodeCount;
+        //Graph  = new Graph();
+        nodes = new HashMap<>();
+        Random rand = new Random();
+        for (int i = 0; i < nodeCount ; i++)
+            addNode(Integer.toString(i));
+
         for (int i = 0; i < edgeCount ; i++) {
-            Random rand = new Random();
+
             int firstNodeName = rand.nextInt(nodeCount);
             int secondNodeName = rand.nextInt(nodeCount);
-            while(secondNodeName == firstNodeName){
+            while(secondNodeName == firstNodeName)
                 secondNodeName = rand.nextInt(nodeCount);
-            }
-            Node firstNode = graph.getNode(Integer.toString(firstNodeName));
-            Node secondNode = graph.getNode(Integer.toString(secondNodeName));
+
+            Node firstNode = getNode(String.valueOf(firstNodeName));
+            Node secondNode = getNode(String.valueOf(secondNodeName));
             firstNode.addEdge(secondNode, rand.nextInt(5));
         }
-        return graph;
+        //return graph;
     }
 
     public static Graph fromFile(String path) throws IOException {
