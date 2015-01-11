@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 
 public class Main extends Application {
@@ -26,6 +27,13 @@ public class Main extends Application {
         } else {
             // start cli
             GraphCli graph = new GraphCli();
+
+            // autosaving
+            File file = new File(".graph");
+            if(!file.exists()) file.createNewFile();
+            // TODO: make graph private and add a setter for graph graphCli and static fromFile
+            graph.graph = graph.graph.fromFile(".graph");
+
             while (true) {
                 graph.call();
                 if (graph.shouldBreak())
