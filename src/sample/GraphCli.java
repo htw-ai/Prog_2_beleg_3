@@ -132,7 +132,8 @@ public class GraphCli {
         int edgeCount = Integer.parseInt(readLine("Enter the max edges"));
         int nodeCount = Integer.parseInt(readLine("Enter the max node count"));
 
-        graph = graph.random(nodeCount, edgeCount);
+        //graph =
+        graph.random(nodeCount, edgeCount);
     }
 
     /**

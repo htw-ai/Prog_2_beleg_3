@@ -74,7 +74,10 @@ public class GraphController {
 
     public void random(ActionEvent actionEvent) {
         Random rand = new Random();
-        graph = graph.random(rand.nextInt(50), rand.nextInt(50));
+        graph.random(rand.nextInt(50), rand.nextInt(50));
+
+        // render two times
+        rerenderGraph();
         rerenderGraph();
     }
 
@@ -140,7 +143,7 @@ public class GraphController {
             graphCanvas.getChildren().add(label);
         }
 
-        storeData();
+        //storeData();
     }
 
     private void storeData(){
