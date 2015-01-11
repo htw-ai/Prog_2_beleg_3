@@ -129,8 +129,8 @@ public class GraphCli {
     }
 
     public void random() throws IOException{
-        int nodeCount = Integer.parseInt(readLine("Enter the max edge rating"));
-        int edgeCount = Integer.parseInt(readLine("Enter the max node count"));
+        int edgeCount = Integer.parseInt(readLine("Enter the max edges"));
+        int nodeCount = Integer.parseInt(readLine("Enter the max node count"));
 
         graph = graph.random(nodeCount, edgeCount);
     }
