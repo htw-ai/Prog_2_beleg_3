@@ -14,11 +14,11 @@ public class GraphCli {
 
     private static String[] methods = { "reset" , "addNode", "removeNode", "addEdge", "removeEdge", "showGraph", "readFromFile", "writeToFile", "random", "quit" };
 
-    private Graph graph = new Graph();
+    public Graph graph = new Graph();
     private boolean quit = false;
 
     public GraphCli (){
-        System.out.println("An empty graph was generated for you");
+        System.out.println("An graph was generated for you");
     }
 
     public void call() throws IOException {
@@ -67,6 +67,8 @@ public class GraphCli {
             default:
                 System.out.println("wrong identifier. only 0-9. Try again.");
         }
+        // autosaving
+        graph.toFile(".graph");
     }
 
     private void quit() {

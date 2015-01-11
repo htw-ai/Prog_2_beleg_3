@@ -10,7 +10,10 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -26,7 +29,20 @@ public class GraphController {
     public TextField filePath;
     public Pane graphCanvas;
 
-    private Graph graph = new Graph();
+    private Graph graph = graphFromAutosave();
+
+    // TODO: into own method to share with cli
+    private Graph graphFromAutosave () {
+        Graph gGraph = new Graph();
+        try {
+            File file = new File(".graph");
+            if(!file.exists()) file.createNewFile();
+            gGraph = gGraph.fromFile(".graph");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return gGraph;
+    };
 
     //Map<Node, Double[]> nodes = new HashMap<>();
     Random rnd = new Random();
@@ -122,6 +138,19 @@ public class GraphController {
 
             graphCanvas.getChildren().add(c);
             graphCanvas.getChildren().add(label);
+        }
+
+        storeData();
+    }
+
+    private void storeData(){
+        // autosaving
+        try {
+            graph.toFile(".graph");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
     }
 
