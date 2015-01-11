@@ -6,7 +6,7 @@ import java.util.HashMap;
  * Created by dudzik on 14.12.14.
  */
 public class Node {
-    public HashMap<Node, Edge> edges = new HashMap<Node, Edge>();
+    public HashMap<Node, Edge> edges = new HashMap<>();
     private String name;
     private double posX;
     private double posY;
@@ -44,8 +44,10 @@ public class Node {
 
     public void deleteAllEdges(){
         for (HashMap.Entry<Node, Edge> entry : edges.entrySet()) {
-            deleteEdge(entry.getKey());
+            //deleteEdge(entry.getKey());
+            entry.getKey().edges.remove(this);
         }
+        edges.clear();
     }
 
     public double getPosX() {

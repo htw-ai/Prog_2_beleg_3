@@ -6,6 +6,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
 
 import java.io.*;
 import java.util.HashMap;
@@ -39,7 +42,7 @@ public class GraphController {
     }
 
     public void addEdge(ActionEvent actionEvent) {
-        graph.getNode(fromNodeName.getText()).addEdge(graph.getNode(toNodeName.getText()), Integer.parseInt(edgeRating.getText()));
+        graph.getNode(fromNodeName.getText()).addEdge(graph.getNode(toNodeName.getText()), Integer.valueOf(edgeRating.getText()));
         rerenderGraph();
     }
 
@@ -70,6 +73,7 @@ public class GraphController {
 
     private void rerenderGraph(){
         graphCanvas.getChildren().clear();
+        Map<String, String> paths = new HashMap<>();
 
         for (Map.Entry<String, Node> mapEntry: graph.getNodes().entrySet()){
             Node node = mapEntry.getValue();
@@ -78,23 +82,78 @@ public class GraphController {
             if (mapEntry.getValue().getPosX() < 20) {
                 int xValue = rnd.nextInt(new Double(graphCanvas.getWidth() - 40).intValue());
                 int yValue = rnd.nextInt(new Double(graphCanvas.getHeight() - 60).intValue());
-                node.setPosX(xValue);
-                node.setPosY(yValue);
+                node.setPosX(xValue + 20);
+                node.setPosY(yValue + 20);
             }
 
             // UI elements
             Circle c = new Circle(4);
-            c.setFill(new Color(119/256, 186/256,186/256, 1));
+            //c.setFill(new Color(119/256, 186/256,186/256, 1));
+            c.setFill(Color.ALICEBLUE);
             Label label = new Label(mapEntry.getKey());
-            c.setLayoutX(node.getPosX() + 20);
-            c.setLayoutY(node.getPosY() + 20);
-            label.setLayoutX(node.getPosX() + 12);
-            label.setLayoutY(node.getPosY() + 25);
+            c.setLayoutX(node.getPosX());
+            c.setLayoutY(node.getPosY());
+            label.setLayoutX(node.getPosX() - 10);
+            label.setLayoutY(node.getPosY() + 5);
+
+            // paint edges
+            for (Map.Entry<Node, Edge> edgeEntry : node.edges.entrySet()){
+                Edge edge = edgeEntry.getValue();
+                Node destinationNode = edgeEntry.getKey();
+
+                if (checkPath(node, destinationNode, paths)){
+                    Path path = new Path();
+                    MoveTo moveTo = new MoveTo(node.getPosX(), node.getPosY());
+                    LineTo lineTo = new LineTo(destinationNode.getPosX(), destinationNode.getPosY());
+
+                    paths.put(node.getName(), destinationNode.getName());
+
+                    path.getElements().add(moveTo);
+                    path.getElements().add(lineTo);
+
+                    Label rating = new Label(String.valueOf(edge.getRating()));
+                    labelRatingAtCenterOfPath(path, rating);
+                    rating.setTextFill(Color.RED);
+
+                    graphCanvas.getChildren().add(path);
+                    graphCanvas.getChildren().add(rating);
+                }
+            }
 
             graphCanvas.getChildren().add(c);
             graphCanvas.getChildren().add(label);
         }
+    }
 
+    /**
+     * search for node1, if it's found search for a connection to node2
+     * also check it the other way around
+     *
+     * @param node1
+     * @param node2
+     * @param paths
+     * @return
+     */
+    private boolean checkPath(Node node1, Node node2, Map<String, String> paths){
+        if (paths.containsKey(node1.getName())
+                && paths.get(node1.getName()).equals(node2.getName()))
+            return false;
+        else if (paths.containsKey(node2.getName())
+                && paths.get(node2.getName()).equals(node1.getName()))
+            return false;
+        return true;
+    }
 
+    private void labelRatingAtCenterOfPath(Path path, Label label){
+        MoveTo moveTo = (MoveTo) path.getElements().get(0);
+        LineTo lineTo = (LineTo) path.getElements().get(1);
+
+        double aX = moveTo.getX();
+        double aY = moveTo.getY();
+        double bX = lineTo.getX();
+        double bY = lineTo.getY();
+
+        label.setLayoutX(aX + (bX - aX)/2);
+        label.setLayoutY(aY + (bY - aY)/2);
     }
 }

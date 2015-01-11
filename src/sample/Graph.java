@@ -13,7 +13,7 @@ import java.util.*;
  */
 
 public class Graph {
-    private Map<String, Node> nodes = new HashMap<String, Node> ();
+    private Map<String, Node> nodes = new HashMap<> ();
 
     public int nodeCount(){
         return nodes.size();
