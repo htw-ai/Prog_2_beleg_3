@@ -11,24 +11,51 @@ import java.util.*;
 /**
  * Created by dudzik on 14.12.14.
  */
-
 public class Graph {
+    /**
+     * a map of all the nodes the graph has
+     */
     private Map<String, Node> nodes = new HashMap<> ();
 
+    /**
+     * @return the total count of nodes the graph has
+     */
     public int nodeCount(){
         return nodes.size();
     }
 
+    /**
+     * add a node with the given name to the graph
+     *
+     * @param name the name of the node
+     */
     public void addNode(String name){
         nodes.put(name, new Node(name));
     }
 
+    /**
+     * retrieves the a node from the graph by its name
+     *
+     * @return the specified node
+     */
     public Node getNode(String name) {
         return nodes.get(name);
     }
 
+    /**
+     * deletes the a node from the graph by its name
+     */
     public void deleteNode(String name){
         nodes.remove(name).deleteAllEdges();
+    }
+
+    /**
+     * getter of nodes
+     *
+     * @return all nodes the graph has
+     */
+    public Map<String, Node> getNodes(){
+        return nodes;
     }
 
     /**
@@ -91,13 +118,13 @@ public class Graph {
     }
 
     /**
+     * generates a random graph
      *
      * @param nodeCount amount of nodes. min 2 nodes
-     * @param edgeCount
+     * @param edgeCount amount of edges
      */
     public void random(int nodeCount, int edgeCount){
         nodeCount = nodeCount < 2 ? 2 : nodeCount;
-        //Graph  = new Graph();
         nodes = new HashMap<>();
         Random rand = new Random();
         for (int i = 0; i < nodeCount ; i++)
@@ -114,9 +141,13 @@ public class Graph {
             Node secondNode = getNode(String.valueOf(secondNodeName));
             firstNode.addEdge(secondNode, rand.nextInt(5));
         }
-        //return graph;
     }
 
+    /**
+     * retrieves graph from a file
+     *
+     * @param path path to file
+     */
     public static Graph fromFile(String path) throws IOException {
         byte[] encoded = Files.readAllBytes(Paths.get(path));
         String str = new String(encoded);
@@ -144,13 +175,14 @@ public class Graph {
         return graph;
     }
 
+    /**
+     * writes graph to a file
+     *
+     * @param path path to file
+     */
     public void toFile(String path) throws FileNotFoundException, UnsupportedEncodingException {
         PrintWriter writer = new PrintWriter(path, "UTF-8");
         writer.print(toString());
         writer.close();
-    }
-
-    public Map<String, Node> getNodes(){
-        return nodes;
     }
 }

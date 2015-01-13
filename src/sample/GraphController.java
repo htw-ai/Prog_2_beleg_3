@@ -22,16 +22,46 @@ import java.util.Random;
  * Created by dudzik on 09.01.15.
  */
 public class GraphController {
+    /**
+     * Textfield which has the name a node
+     */
     public TextField nodeName;
+
+    /**
+     * Textfield which has the name to a node
+     */
     public TextField toNodeName;
+
+    /**
+     * Textfield which has the name from a node
+     */
     public TextField fromNodeName;
+
+    /**
+     * Textfield which has a edge rating in it
+     */
     public TextField edgeRating;
+
+    /**
+     * Textfield which has contains a file path
+     */
     public TextField filePath;
+
+    /**
+     * holds the canvas
+     */
     public Pane graphCanvas;
 
+    /**
+     * initializes graph from autosave
+     */
     private Graph graph = graphFromAutosave();
 
-    // TODO: into own method to share with cli
+    /**
+     * retrieves graph from autosave file
+     *
+     * @todo into own method to share with cli
+     */
     private Graph graphFromAutosave () {
         Graph gGraph = new Graph();
         try {
@@ -44,34 +74,54 @@ public class GraphController {
         return gGraph;
     };
 
-    //Map<Node, Double[]> nodes = new HashMap<>();
-    Random rnd = new Random();
+    /**
+     * a random instance
+     */
+    private Random rnd = new Random();
 
+    /**
+     * listens to addNode and adds node to graph
+     */
     public void addNode(ActionEvent actionEvent) {
         graph.addNode(nodeName.getText());
         rerenderGraph();
     }
 
+    /**
+     * listens to addNode and adds node to graph
+     */
     public void removeNode(ActionEvent actionEvent) {
         graph.deleteNode(nodeName.getText());
         rerenderGraph();
     }
 
+    /**
+     * listens to addNode and adds node to graph
+     */
     public void addEdge(ActionEvent actionEvent) {
         graph.getNode(fromNodeName.getText()).addEdge(graph.getNode(toNodeName.getText()), Integer.valueOf(edgeRating.getText()));
         rerenderGraph();
     }
 
+    /**
+     * listens to removeEdge and removes an edge from the graph
+     */
     public void removeEdge(ActionEvent actionEvent) {
         graph.getNode(fromNodeName.getText()).deleteEdge(graph.getNode(toNodeName.getText()));
         rerenderGraph();
     }
 
+    /**
+     * listens to reset and initializes a new graph
+     */
     public void reset(ActionEvent actionEvent) {
         graph = new Graph();
         rerenderGraph();
     }
 
+    /**
+     * listens to random and initializes a random graph
+     */
     public void random(ActionEvent actionEvent) {
         Random rand = new Random();
         graph.random(rand.nextInt(50), rand.nextInt(50));
@@ -81,15 +131,24 @@ public class GraphController {
         rerenderGraph();
     }
 
+    /**
+     * listens to writeFile and writes graph to a file
+     */
     public void writeFile(ActionEvent actionEvent) throws FileNotFoundException, UnsupportedEncodingException {
         graph.toFile(filePath.getText());
     }
 
+    /**
+     * listens to readFile and initializes graph from a file
+     */
     public void readFile(ActionEvent actionEvent) throws IOException {
         graph = Graph.fromFile(filePath.getText());
         rerenderGraph();
     }
 
+    /**
+     * renders the the graph on the pane
+     */
     private void rerenderGraph(){
         graphCanvas.getChildren().clear();
         Map<String, String> paths = new HashMap<>();
@@ -143,11 +202,13 @@ public class GraphController {
             graphCanvas.getChildren().add(label);
         }
 
-        //storeData();
+        storeData();
     }
 
+    /**
+     * implements the autosaving feature
+     */
     private void storeData(){
-        // autosaving
         try {
             graph.toFile(".graph");
         } catch (FileNotFoundException e) {
@@ -176,6 +237,13 @@ public class GraphController {
         return true;
     }
 
+    /**
+     *
+     *  sets the label to the center of a path
+     *
+     * @param path
+     * @param label
+     */
     private void labelRatingAtCenterOfPath(Path path, Label label){
         MoveTo moveTo = (MoveTo) path.getElements().get(0);
         LineTo lineTo = (LineTo) path.getElements().get(1);

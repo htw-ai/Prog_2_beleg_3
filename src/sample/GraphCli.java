@@ -9,18 +9,31 @@ import java.io.InputStreamReader;
  */
 public class GraphCli {
     /**
-     * a list of all the Vektor methods which can be accessed by the user from the cli
+     * a list of all the Graph methods which can be accessed by the user from the cli
      */
-
     private static String[] methods = { "reset" , "addNode", "removeNode", "addEdge", "removeEdge", "showGraph", "readFromFile", "writeToFile", "random", "quit" };
 
+
+    /**
+     * just the graph. a new graph. just for you.
+     */
     public Graph graph = new Graph();
+
+    /**
+     * the value which let the while loop know that the user wants the programm closed
+     */
     private boolean quit = false;
 
+    /**
+     * the user gets the feedback that a graph was generated when the Graph Cli is initialized
+     */
     public GraphCli (){
         System.out.println("An graph was generated for you");
     }
 
+    /**
+     * starts the cmd prompt
+     */
     public void call() throws IOException {
         System.out.println("Enter the identifier of one of the following methods to run it");
         System.out.println(methodsToString());
@@ -32,6 +45,12 @@ public class GraphCli {
         }
     }
 
+    /**
+     * promts the user to enter a cmd identifier which in turn runs identified cmd
+     *   autosaving is done here
+     *
+     * @param identifier char which is the identifier -> there are only 9
+     */
     public void runMethod(char identifier) throws IOException {
         switch (identifier) {
             case '0':
@@ -71,29 +90,46 @@ public class GraphCli {
         graph.toFile(".graph");
     }
 
+    /**
+     * sets quit to true
+     */
     private void quit() {
         setQuit(true);
     }
 
+    /**
+     * @return if the user enterd the quit cmd
+     */
     public Boolean shouldBreak(){
         return quit;
     }
 
-
+    /**
+     * set an empty graph
+     */
     public void reset(){
         graph = new Graph();
     }
 
+    /**
+     * promts the user to enter the edge which is going to be removed
+     */
     public void addNode() throws IOException {
         String nodeName = readLine("Enter a node name");
         graph.addNode(nodeName);
     }
 
+    /**
+     * promts the user to enter the node which is going to be removed
+     */
     public void removeNode() throws IOException {
         String nodeName = readLine("Enter the node name");
         graph.deleteNode(nodeName);
     }
 
+    /**
+     * promts the user to enter the edge which is going to be added
+     */
     public void addEdge() throws IOException {
         if(graph.nodeCount() <= 1) {
             System.out.println("you have to have at least two nodes for this operation");
@@ -107,6 +143,9 @@ public class GraphCli {
         graph.getNode(nodeNameFrom).addEdge(graph.getNode(nodeNameTo), iRating);
     }
 
+    /**
+     * promts the user to enter the edge which is going to be removed
+     */
     public void removeEdge() throws IOException {
         String nodeNameFrom = readLine("Enter the from node name");
         String nodeNameTo   = readLine("Enter the to node name");
@@ -117,17 +156,29 @@ public class GraphCli {
         System.out.println(graph.toString());
     }
 
+    /**
+     * promts the user to enter path to the file which is going to be imported into the console
+     *
+     */
     public void readFromFile() throws IOException {
         String path = readLine("Enter file path");
         graph = Graph.fromFile(path);
         System.out.println("import successfull");
     }
 
+    /**
+     * promts the user to enter path to file which is going to be written to
+     *
+     */
     public void writeToFile() throws IOException {
         String path = readLine("Enter file path");
         graph.toFile(path);
     }
 
+    /**
+     * promts the user to enter edges and node count which the random graph should have
+     *
+     */
     public void random() throws IOException{
         int edgeCount = Integer.parseInt(readLine("Enter the max edges"));
         int nodeCount = Integer.parseInt(readLine("Enter the max node count"));
