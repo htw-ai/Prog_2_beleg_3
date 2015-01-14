@@ -44,11 +44,11 @@
                 <Button layoutX="105.0" layoutY="319.0" mnemonicParsing="false" onAction="#writeFile" prefHeight="26.0" prefWidth="74.0" text="write" />
                 <Button layoutX="14.0" layoutY="357.0" mnemonicParsing="false" onAction="#reset" prefHeight="26.0" prefWidth="74.0" text="reset" />
                 <Button layoutX="104.0" layoutY="357.0" mnemonicParsing="false" onAction="#random" prefHeight="26.0" prefWidth="74.0" text="random" />
-            <TextField fx:id="searchStart" layoutX="14.0" layoutY="423.0" promptText="from no name" />
-            <TextField fx:id="searchDestination" layoutX="14.0" layoutY="456.0" promptText="from no name" />
-            <Label fx:id="pathfinderLbl" layoutX="14.0" layoutY="398.0" maxWidth="170.0" prefWidth="170.0" />
-            <Button layoutX="14.0" layoutY="489.0" mnemonicParsing="false" onAction="#searchPath" prefHeight="26.0" prefWidth="74.0" text="path" />
-            <Button layoutX="105.0" layoutY="489.0" mnemonicParsing="false" onAction="#searchShortestPath" prefHeight="26.0" prefWidth="74.0" text="short path" />
+            <TextField layoutX="14.0" layoutY="423.0" promptText="from no name" />
+            <TextField layoutX="14.0" layoutY="456.0" promptText="from no name" />
+            <Label id="pathfinderLbl" layoutX="14.0" layoutY="398.0" maxWidth="170.0" prefWidth="170.0" />
+            <Button layoutX="14.0" layoutY="489.0" mnemonicParsing="false" onAction="#addNode" prefHeight="26.0" prefWidth="74.0" text="path" />
+            <Button layoutX="105.0" layoutY="489.0" mnemonicParsing="false" onAction="#removeNode" prefHeight="26.0" prefWidth="74.0" text="short path" />
             </children>
         </Pane>
     </children>

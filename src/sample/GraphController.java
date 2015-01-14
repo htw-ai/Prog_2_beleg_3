@@ -15,6 +15,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -51,6 +52,18 @@ public class GraphController {
      * holds the canvas
      */
     public Pane graphCanvas;
+    /**
+     * label which displays the path from one node to another
+     */
+    public Label pathfinderLbl;
+    /**
+     * Textfield setting the start node for search
+     */
+    public TextField searchStart;
+    /**
+     * Textfield setting the destination node for search
+     */
+    public TextField searchDestination;
 
     /**
      * initializes graph from autosave
@@ -62,7 +75,7 @@ public class GraphController {
      *
      * @todo into own method to share with cli
      */
-    private Graph graphFromAutosave () {
+    private static Graph graphFromAutosave () {
         Graph gGraph = new Graph();
         try {
             File file = new File(".graph");
@@ -71,6 +84,8 @@ public class GraphController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        Pathfinder.Graph = gGraph;
         return gGraph;
     };
 
@@ -255,5 +270,15 @@ public class GraphController {
 
         label.setLayoutX(aX + (bX - aX)/2);
         label.setLayoutY(aY + (bY - aY)/2);
+    }
+
+    public void searchPath(ActionEvent actionEvent) {
+        Pathfinder.Search(graph.getNode(searchStart.getText()), graph.getNode(searchDestination.getText()));
+    }
+
+    public void searchShortestPath(ActionEvent actionEvent) {
+        List path = Pathfinder.QuickSearch(graph.getNode(searchStart.getText()), graph.getNode(searchDestination.getText()));
+        path.stream().map( n -> {return n.getName();});
+        pathfinderLbl.setText();
     }
 }
