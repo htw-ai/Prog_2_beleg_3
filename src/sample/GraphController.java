@@ -144,6 +144,7 @@ public class GraphController {
     public void readFile(ActionEvent actionEvent) throws IOException {
         graph = Graph.fromFile(filePath.getText());
         rerenderGraph();
+        rerenderGraph();
     }
 
     /**
@@ -157,7 +158,7 @@ public class GraphController {
             Node node = mapEntry.getValue();
 
             // generate position
-            if (mapEntry.getValue().getPosX() < 20) {
+            if (node.getPosX() < 20) {
                 int xValue = rnd.nextInt(new Double(graphCanvas.getWidth() - 40).intValue());
                 int yValue = rnd.nextInt(new Double(graphCanvas.getHeight() - 60).intValue());
                 node.setPosX(xValue + 20);

@@ -10,10 +10,7 @@
 <AnchorPane minHeight="500.0" minWidth="600.0" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.GraphController">
     <children>
         <Pane fx:id="graphCanvas" layoutX="195.0" layoutY="15.0" style="-fx-background-color: #77BABA;" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="195.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
-            <children>
-                <Circle fill="#1162ae" layoutX="20.0" layoutY="20.0" radius="4.0" stroke="#1162ae" strokeType="INSIDE" />
-                <Label layoutX="8.0" layoutY="26.0" text="Node" textOverrun="WORD_ELLIPSIS" />
-            </children>
+            <children/>
         </Pane>
         <Pane maxHeight="-Infinity" maxWidth="-Infinity">
             <children>

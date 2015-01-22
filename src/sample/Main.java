@@ -26,7 +26,7 @@ public class Main extends Application {
      * @param args if first param is "gui" then the programm starts the gui application else the Cli application
      */
     public static void main(String[] args) throws IOException {
-        if(args.length > 0 && args[0].equals("gui")){
+        if(args.length > 0 && args[0].equalsIgnoreCase("gui")){
             // start gui
             launch(args);
         } else {
