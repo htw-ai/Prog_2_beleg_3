@@ -2,7 +2,7 @@
 
 Das Graphen Programm kann als GUI oder CLI verwendet werden.
 Wenn man dem Programm das argument “gui” übergibt wird das Programm im GUI modus gestartet ansonsten als CLI Anwendung.
-Das Programm implementiert zusatzlich automatisches speichern und auslesen des Graphen.
+Das Programm implementiert zusätzlich automatisches speichern und auslesen des Graphen.
 
 ## Graph
 Der Graph hat eine Map von Node die wiederum eine Map von Edges haben.
