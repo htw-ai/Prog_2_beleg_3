@@ -55,7 +55,7 @@ public class GraphController {
     /**
      * initializes graph from autosave
      */
-    private Graph graph = graphFromAutosave();
+    private Graph graph = new Graph();
 
     /**
      * retrieves graph from autosave file
@@ -143,6 +143,15 @@ public class GraphController {
      */
     public void readFile(ActionEvent actionEvent) throws IOException {
         graph = Graph.fromFile(filePath.getText());
+        rerenderGraph();
+        rerenderGraph();
+    }
+
+    /**
+     * listens to loadAutosave and initializes graph from a file
+     */
+    public void fromAutosave(ActionEvent actionEvent) throws IOException {
+        graph = graphFromAutosave();
         rerenderGraph();
         rerenderGraph();
     }
