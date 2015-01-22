@@ -21,6 +21,9 @@
                 <TextField fx:id="toNodeName" layoutX="14.0" layoutY="143.0" promptText="to node name" />
                 <TextField fx:id="edgeRating" layoutX="14.0" layoutY="177.0" promptText="edge rating" />
                 <Button layoutX="14.0" layoutY="213.0" mnemonicParsing="false" onAction="#addEdge" prefHeight="26.0" prefWidth="74.0" text="add edge" />
+
+                <Button layoutX="105.0" layoutY="213.0" mnemonicParsing="false" onAction="#removeEdge" prefHeight="26.0" prefWidth="74.0" text="remove edge" />
+
                 <Button layoutX="14.0" layoutY="319.0" mnemonicParsing="false" onAction="#readFile" prefHeight="26.0" prefWidth="74.0" text="read" />
 
                 <Button layoutX="14.0" layoutY="400.0" mnemonicParsing="false" onAction="#fromAutosave" prefHeight="26.0" prefWidth="165.0" text="load autosave" />
